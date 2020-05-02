@@ -1,5 +1,5 @@
 
-# BlankModelAPI
+# BlankAPIModel
 
 A base model api to make more fast and easy create Api
 
