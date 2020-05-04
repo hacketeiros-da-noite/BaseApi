@@ -8,6 +8,7 @@ A base model api to make more fast and easy create Api
       C# .Net Core
       Dapper
       Swagger
+      Docker
       PostgreSQL
 
 
