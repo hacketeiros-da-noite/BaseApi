@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BlankApiModel.Controllers
 {
+    /// <summary>
+    /// Example of a controller used to demonstrate the use of the template.
+    /// </summary>
     public class GiveYourJumpController : Controller
     {
         private IBaseDao _dbConnection;
@@ -20,6 +23,10 @@ namespace BlankApiModel.Controllers
             return Ok("Nobody yes door");
         }
 
+        /// <summary>
+        /// Example of selecting all database data through a GET request.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
@@ -33,6 +40,9 @@ namespace BlankApiModel.Controllers
             }
         }
 
+        /// <summary>
+        /// Example of insertion using a POST request.
+        /// </summary> 
         [HttpPost("InsertGiveYourJumps")]
         public async Task<IActionResult> Post(GiveYourJumpsModel giveYourJumps)
         {
