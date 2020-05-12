@@ -8,7 +8,7 @@ namespace BlankApiModel.Implementations
     /// <summary>
     /// Example of a service layer pattern implementation.
     /// </summary>
-    public class GiveYourJumpsService
+    public class GiveYourJumpsService : IGiveYourJumpsService
     {
         private readonly IBaseDao _connection;
 
