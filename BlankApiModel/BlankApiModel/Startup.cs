@@ -27,7 +27,7 @@ namespace BlankApiModel
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
             services.AddScoped<IBaseDao, PostgreeBaseDao>();
-            services.AddScoped(typeof(GiveYourJumpsService));
+            services.AddScoped<IGiveYourJumpsService, GiveYourJumpsService>();
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
