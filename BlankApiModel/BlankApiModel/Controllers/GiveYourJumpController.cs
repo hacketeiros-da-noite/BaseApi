@@ -1,4 +1,5 @@
 ﻿using BlankApiModel.Dao;
+using BlankApiModel.Implementations;
 using BlankApiModel.Model.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,28 +12,27 @@ namespace BlankApiModel.Controllers
     /// </summary>
     public class GiveYourJumpController : Controller
     {
-        private IBaseDao _dbConnection;
-        public GiveYourJumpController(IBaseDao dbConnection)
+        private readonly GiveYourJumpsService _giveYourJumpsService;
+        public GiveYourJumpController(GiveYourJumpsService giveYourJumpsService)
         {
-            _dbConnection = dbConnection;
+            _giveYourJumpsService = giveYourJumpsService;
         }
 
+        /// <summary>
+        /// Simple GET request example
+        /// </summary>
         [HttpGet("IsAlive")]
-        public IActionResult IsAlive()
-        {
-            return Ok("Nobody yes door");
-        }
+        public IActionResult IsAlive() => Ok("Nobody yes door");
 
         /// <summary>
         /// Example of selecting all database data through a GET request.
         /// </summary>
-        /// <returns></returns>
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
             try
             {
-                return Ok(await _dbConnection.GetAll<GiveYourJumpsModel>());
+                return Ok(await _giveYourJumpsService.GetAllAsync());
             }
             catch (Exception ex)
             {
@@ -48,7 +48,7 @@ namespace BlankApiModel.Controllers
         {
             try
             {
-                return Ok(await _dbConnection.Insert(giveYourJumps));
+                return Ok(await _giveYourJumpsService.InsertAsync(giveYourJumps));
             }
             catch(Exception ex)
             {

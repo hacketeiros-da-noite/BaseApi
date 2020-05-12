@@ -38,9 +38,7 @@ namespace BlankApiModel.Extension
                     }
                 }
                 else
-                {
                     await connection.QueryAsync(UpdateFormat(obj));
-                }
 
                 return true;
             }
@@ -52,7 +50,7 @@ namespace BlankApiModel.Extension
         }
 
         /// <summary>
-        /// Create sql query to <see cref="UpdatObject{T}(NpgsqlConnection, T)"/>
+        /// Create sql query to <see cref="UpdatObject{T}(IDbConnection, T)"/>
         /// This ignore items by <see cref="IsDefaultOrIgnore(PropertyInfo, object)"/>
         /// The query is: update <see cref="TableAttribute"/> set attributes (name1=value1,name2,value2) where id = <see cref="KeyAttribute"/>
         /// Get <see cref="ColumnAttribute"/> names by <see cref="GetPropertyDataBaseName(PropertyInfo)"/>
@@ -81,7 +79,7 @@ namespace BlankApiModel.Extension
         /// The key param must contains just <see cref="KeyAttribute"/>
         /// ForeignKey must constains just <see cref="ForeignKeyAttribute"/>
         /// </summary>
-        /// <param name="connection">Type of <see cref="NpgsqlConnection"/></param>
+        /// <param name="connection">Type of <see cref="IDbConnection"/></param>
         /// <returns>Return a object that contains the id inserted if has item in <paramref name="obj"/> or return a list of ids inseted if contains a list in <paramref name="obj"/></returns>
         public async static Task<object> InsertObject<T>(this IDbConnection connection, T obj)
         {
@@ -113,7 +111,7 @@ namespace BlankApiModel.Extension
         }
 
         /// <summary>
-        /// Create sql query to <see cref="InsertObject{T}(NpgsqlConnection, T)"/>
+        /// Create sql query to <see cref="InsertObject{T}(IDbConnection, T)"/>
         /// This ignore items by <see cref="IsDefaultOrIgnore(PropertyInfo, object)"/>
         /// The query is: insert into <see cref="TableAttribute"/> (list of names in <see cref="ColumnAttribute"/>) values (values in items that contains <see cref="ColumnAttribute"/>) RETURNING id
         /// Get <see cref="ColumnAttribute"/> names by <see cref="GetPropertyDataBaseName(PropertyInfo)"/>
@@ -127,12 +125,18 @@ namespace BlankApiModel.Extension
                         .Where(x => !x.IsDefaultOrIgnore(x.GetValue(obj, null)))
                         .ToList();
 
+            var keyAttributeName = obj
+                        .GetType()
+                        .GetProperties()
+                        .SingleOrDefault(x => x.GetCustomAttribute<KeyAttribute>() != null)
+                        .GetPropertyDataBaseName();
+
             var valuesParams = $"({props.Select(x => x.GetPropertyDataBaseName()).Aggregate((x, y) => $"{x},{y}")})";
             var listValues = $"({props.Select(x => x.TransformValueWhenString(obj)).Aggregate((x, y) => $"{x},{y}")})";
 
             var name = obj.GetType().GetCustomAttributes<TableAttribute>().Select((TableAttribute table) => table.Name).SingleOrDefault();
 
-            return $"insert into {name} {valuesParams} values {listValues}; select max(id) from {name};";
+            return $"insert into {name} {valuesParams} values {listValues}; select max({keyAttributeName}) from {name};";
         }
 
         /// <summary>
@@ -142,9 +146,7 @@ namespace BlankApiModel.Extension
         public static object TransformValueWhenString(this PropertyInfo property, object obj)
         {
             if (property.GetValue(obj, null).GetType().Equals(typeof(string)))
-            {
                 return $"\'{property.GetValue(obj, null)}\'";
-            }
 
             return property.GetValue(obj, null);
         }
@@ -216,7 +218,5 @@ namespace BlankApiModel.Extension
             var propertyType = property.PropertyType;
             return propertyType.IsValueType ? Activator.CreateInstance(propertyType) : null;
         }
-
-
     }
 }

@@ -1,5 +1,6 @@
 using BlankApiModel.Dao;
 using BlankApiModel.Dao.DbConnections;
+using BlankApiModel.Implementations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +26,8 @@ namespace BlankApiModel
         {
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
-            services.AddTransient<IBaseDao, PostgreeBaseDao>();
+            services.AddScoped<IBaseDao, PostgreeBaseDao>();
+            services.AddScoped(typeof(GiveYourJumpsService));
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
