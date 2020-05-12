@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>e0ee0d4e-4f36-4332-b6e7-6751efd5048f</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Model\ViewModel\**" />
+    <Content Remove="Model\ViewModel\**" />
+    <EmbeddedResource Remove="Model\ViewModel\**" />
+    <None Remove="Model\ViewModel\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper.Contrib" Version="2.0.35" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Npgsql" Version="4.1.3.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
+  </ItemGroup>
+
+
+</Project>
