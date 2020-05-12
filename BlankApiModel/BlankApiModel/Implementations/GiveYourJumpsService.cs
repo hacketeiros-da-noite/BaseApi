@@ -20,7 +20,6 @@ namespace BlankApiModel.Implementations
         /// <summary>
         /// Get all database data by <see cref="GiveYourJumpsModel"/> entity.
         /// </summary>
-        /// <returns></returns>
         public async Task<object> GetAllAsync()
         {
             var result = await _connection.GetAll<GiveYourJumpsModel>();
@@ -30,7 +29,6 @@ namespace BlankApiModel.Implementations
         /// <summary>
         /// Insert new item in database by <see cref="GiveYourJumpsModel"/> entity.
         /// </summary>
-        /// <returns></returns>
         public async Task<object> InsertAsync(GiveYourJumpsModel giveYourJumps)
         {
             if (giveYourJumps == null)

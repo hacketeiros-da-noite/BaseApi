@@ -21,14 +21,12 @@ namespace BlankApiModel.Controllers
         /// <summary>
         /// Simple GET request example
         /// </summary>
-        /// <returns></returns>
         [HttpGet("IsAlive")]
         public IActionResult IsAlive() => Ok("Nobody yes door");
 
         /// <summary>
         /// Example of selecting all database data through a GET request.
         /// </summary>
-        /// <returns></returns>
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {

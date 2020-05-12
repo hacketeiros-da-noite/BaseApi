@@ -218,7 +218,5 @@ namespace BlankApiModel.Extension
             var propertyType = property.PropertyType;
             return propertyType.IsValueType ? Activator.CreateInstance(propertyType) : null;
         }
-
-
     }
 }
