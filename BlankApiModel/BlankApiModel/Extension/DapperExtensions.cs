@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace BlankApiModel.Extension
         /// ForeignKey must constains just <see cref="ForeignKeyAttribute"/>
         /// </summary>
         /// <param name="connection">Type of <see cref="NpgsqlConnection"/></param>
-        public async static Task<bool> UpdatObject<T>(this NpgsqlConnection connection, T obj)
+        public async static Task<bool> UpdatObject<T>(this IDbConnection connection, T obj)
         {
             try
             {
@@ -82,7 +83,7 @@ namespace BlankApiModel.Extension
         /// </summary>
         /// <param name="connection">Type of <see cref="NpgsqlConnection"/></param>
         /// <returns>Return a object that contains the id inserted if has item in <paramref name="obj"/> or return a list of ids inseted if contains a list in <paramref name="obj"/></returns>
-        public async static Task<object> InsertObject<T>(this NpgsqlConnection connection, T obj)
+        public async static Task<object> InsertObject<T>(this IDbConnection connection, T obj)
         {
             var listIds = new List<int>();
 
@@ -131,7 +132,7 @@ namespace BlankApiModel.Extension
 
             var name = obj.GetType().GetCustomAttributes<TableAttribute>().Select((TableAttribute table) => table.Name).SingleOrDefault();
 
-            return $"insert into {name} {valuesParams} values {listValues} RETURNING id";
+            return $"insert into {name} {valuesParams} values {listValues}; select max(id) from {name};";
         }
 
         /// <summary>
