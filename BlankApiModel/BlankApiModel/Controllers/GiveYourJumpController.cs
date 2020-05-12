@@ -12,8 +12,8 @@ namespace BlankApiModel.Controllers
     /// </summary>
     public class GiveYourJumpController : Controller
     {
-        private readonly GiveYourJumpsService _giveYourJumpsService;
-        public GiveYourJumpController(GiveYourJumpsService giveYourJumpsService)
+        private readonly IGiveYourJumpsService _giveYourJumpsService;
+        public GiveYourJumpController(IGiveYourJumpsService giveYourJumpsService)
         {
             _giveYourJumpsService = giveYourJumpsService;
         }
