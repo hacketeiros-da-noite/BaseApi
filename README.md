@@ -18,7 +18,7 @@ A base model api to make more fast and easy create Api
 NOTE: This is a template repo, so you can use it to create a new repository based on our BaseApi
 ### How to use
 
- - Click in "Use this template" buttom next to "Clone or download" buttom.
+ - Click in "Use this template" button next to "Clone or download" button.
  - Configure your new repository.
  - Create it!
  - Good luck and have fun!
