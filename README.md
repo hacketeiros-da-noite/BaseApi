@@ -30,3 +30,4 @@ NOTE: This is a template repo, so you can use it to create a new repository base
 * [Filipe Jessé](https://www.github.com/filipejesse)
 * [Evandro Junior](https://www.github.com/evandrojunior)
 * [Yan Agassi](https://www.github.com/yanagassi)
+* [Rogerson Nazário](https://github.com/rrnazario)
