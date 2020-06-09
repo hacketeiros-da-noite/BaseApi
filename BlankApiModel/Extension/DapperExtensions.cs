@@ -63,7 +63,7 @@ namespace BlankApiModel.Extension
                         .SingleOrDefault(x => x.GetCustomAttribute<KeyAttribute>() != null)
                         .GetValue(obj, null);
 
-            var props = obj.GetType().GetProperties().Where(x => x.GetCustomAttribute<KeyAttribute>() == null).ToList();
+            var props = obj.GetType().GetProperties().Where(x => x.GetCustomAttribute<KeyAttribute>() == null && x.GetCustomAttribute<ForeignKeyAttribute>() == null).ToList();
 
             var name = obj.GetType().GetCustomAttributes<TableAttribute>().Select((TableAttribute table) => table.Name).SingleOrDefault();
 
